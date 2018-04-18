@@ -1,0 +1,20 @@
+body{
+	background-color: gray;
+}
+
+.image{
+	object-fit: contain;
+	height: inherit;
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.video{
+	height: 758px;
+	width: auto;
+}
+
+button{
+	border: 0;
+}
