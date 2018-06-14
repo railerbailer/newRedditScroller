@@ -2,148 +2,43 @@ import React, { Component } from 'react'
 import Slider from 'react-slick'
 import Swipeable from 'react-swipeable'
 import 'antd/dist/antd.css';
-import { Icon } from 'antd';
-import {subredditArray, secondTheme, randomsecondTheme} from '../subreddits'
+import { Icon, Button } from 'antd';
+import videoConnect from 'react-html5video';
+import {subredditArray, NSFW, gifsArray,
+alternativeNSFW,
+tattooNSFW,
+amateurNSFW,
+collegeNSFW,
+gonewildNSFW,
+selfieNSFW,
+analNSFW,
+buttplugNSFW,
+assNSFW,
+athleticNSFW,
+fatNSFW,
+bigdickNSFW,
+bimboNSFW,
+ boobsNSFW,
+titfuckNSFW,
+sexyclothingNSFW,
+pornnetworksNSFW,
+cumNSFW,
+ asianNSFW,
+blackNSFW,
+ indianNSFW,
+bdsmNSFW,
+ otherNSFW,
+cuckoldNSFW,} from '../subreddits'
 import logo from '../logo.svg'
 import '../App.css'
-import { DefaultPlayer as Video } from 'react-html5video';
+import { DefaultPlayer as Video, togglePause, PlayPause } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
 
 
 // import ArrowKeysReact from 'arrow-keys-react';
 
+
  
-const styles = {
-  loaderIcon:{
-    fontSize: '40px', 
-    color: 'green', 
-    zIndex: 1,
-    position: 'absolute',
-    top: '50%',
-    left:'50%'
-
-  },
-  iconDown:{
-    fontSize:'40px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    left: '50%',
-    bottom: 1,
-
-  },
-  iconUp:{
-    fontSize: '40px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    left: '50%',
-    top: 1,
-
-  },
-  iconLeft:{
-    fontSize: '40px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    left: 1,
-    top: '50%',
-
-  },
-  iconRight:{
-    fontSize: '40px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    right: 1,
-    top: '50%',
-
-  },
-  icon:{
-    fontSize: '40px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    opacity: '0.4'
-
-  },
-
-  titlesLeft:{
-  	fontSize: '40px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    opacity: '0.4',
-    left: '0%',
-    top: '10%',
-  },
-  titlesRight:{
-  	fontSize: '15px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    opacity: '0.4',
-    left: '0%',
-    top: '5%',
-  },
-  slider: {
-
-  },
-
-    imgContainerSmall:{
-    maxHeight: '100%',
-    width: 'auto',
-    margin: 'auto',
-    
-  },
-
-  imgDiv:{
-    
-    backgroundColor:'blue',
-    height: '100%',
-    maxWidth: '100%',
-  },
-  imgContainer:{
-    height: '100%',
-    maxHeight: '100%',
-    width: 'auto',
-    margin: 'auto',
-    
-  },
-
-  videoDiv:{
-
-    backgroundColor:'blue',
-    height: '100%',
-    maxWidth: '100%',
-    maxHeight: '100%'
-
-  },
-
-  videoContainer:{
-    height: '100%',
-    maxHeight: '100%',
-    maxWidth: '100%',
-    margin: 'auto',
-    
-  },
-
-  wrapper: {
-    height: '100%',
-    width: '100%'
-  },
-  red: {
-    color: 'red',
-  },
-}
-
 class Scroller extends Component {
   constructor(props){
     super(props)
@@ -154,15 +49,20 @@ class Scroller extends Component {
     this.next = this.next.bind(this)
     this.previous = this.previous.bind(this)
     this.goto = this.goto.bind(this)
+    this.pressUpOrDown = this.pressUpOrDown.bind(this)
+    
+
     
     this.state={
       sliderData: [],
       subreddit: '',
       activeSlide:0,
       activeSlide2:0,
+      looper: false
       
     }  
   }
+
 
   // what do you want to swoapp? 
   // If nsfw chosen, ask for age, if age is 18+, load the const into getSubReddit()
@@ -174,124 +74,111 @@ class Scroller extends Component {
 
 
   componentDidMount(){
+
     this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category))) 
   }
-  getSubreddit(subreddit){
-    console.log(subreddit)
-    this.setState({subreddit: subreddit})
-      fetch(`https://www.reddit.com/r/${subreddit}.json?limit=100`)
-      .then(response => response.json())
-      .then((jsonData) =>{ 
-          let datavar=jsonData.data.children.map((testData,i)=>{
-
-            if(testData.data.post_hint==="link"&&testData.data.preview.reddit_video_preview)   {
-              return(
-                <div style={styles.videoDiv} key={i}>
-                  <Video autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="none" controls={[]} loop className="video" >
-                    <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
-                    <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
-                  </Video>
-                 </div>
-              )
- 
-            }
-
-            if(testData.data.post_hint==="rich:video"&&testData.data.preview.reddit_video_preview)   {
-              return(
-                <div style={styles.videoDiv} key={i}>
-                  <Video autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="none" className="video" loop controls={[]}>
-                    <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
-                    <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
-                  </Video>
-                 </div>
-              )
-
-            }
-            if(testData.data.post_hint==="hosted:video"&&testData.data.preview.reddit_video_preview)   {
-              return(
-                <div style={styles.videoDiv} key={i}>
-                  <Video autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="none" className="video" loop controls={[]}>
-                    <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
-                    <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
-                  </Video>
-                 </div>
-              )
-
-            }
-
-            if(testData.data.post_hint==="image"&&testData.data.preview.reddit_video_preview)   {
-             
-              return(
-                <div style={styles.videoDiv} key={i}>
-                  <Video autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="none"  loop  controls={[]} className="video">
-                    <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
-                    <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
-                  </Video>
-                </div>
-              )
-
-            }            
-
-            if(testData.data.post_hint==="image"){
-              let sizeRatio= testData.data.preview.images[0].source.height+testData.data.preview.images[0].source.width
-              
-              if (testData.data.preview.images[0].source.height<300){
-                return (
-                  <div style={styles.imgDiv} key={i}>
-                    <img style={styles.imgContainerSmall} src={this.imageParser(testData.data.preview.images[0].source.url)} alt={logo}/>
-                   </div>
-                 )
-               }
-
-              if (testData.data.preview.images[0].resolutions[3]&&sizeRatio>1500){
-                return (
-                  <div style={styles.imgDiv} key={i}>
-
-                    <img className="image" src={this.imageParser(testData.data.preview.images[0].resolutions[3].url)} alt={logo}/>
-                   </div>
-                 )
-               }
-                        
-              if (testData.data.preview.images[0].resolutions[4]&&sizeRatio<1500){
-                return (
-                  <div style={styles.imgDiv} key={i}>
-                    <img className="image" src={this.imageParser(testData.data.preview.images[0].resolutions[4].url)} alt={logo}/>
-                  </div>
-                )
-              }
-            }
-                
-        })
-      
-          this.setState({sliderData: datavar})
-      })
-      .catch(error=> console.log('parsing error', error)) 
-  }
+  
 
   dataHandler(props){
-  	if(props==='DontClickHere'){
-  		return(randomsecondTheme)
+  	if(props==='GIFS'){
+  		return(gifsArray)
   	}
   	if(props==='NSFW'){
-  		return(secondTheme)
+  		return(NSFW)
   	}
-  	if(props==='normal'){
+  	if(props==='NORMAL'){
   		return(subredditArray)
   	}
+  	if(props==='alternativeNSFW'){
+  		return(alternativeNSFW)
+  	}
+  	if(props==='tattooNSFW'){
+  		return(tattooNSFW)
+  	}
+  	if(props==='amateurNSFW'){
+  		return(amateurNSFW)
+  	}
+  	if(props==='collegeNSFW'){
+  		return(collegeNSFW)
+  	}
+  	if(props==='gonewildNSFW'){
+  		return(gonewildNSFW)
+  	}
+  	if(props==='selfieNSFW'){
+  		return(selfieNSFW)
+  	}
+  	if(props==='analNSFW'){
+  		return(analNSFW)
+  	}
+  	if(props==='buttplugNSFW'){
+  		return(buttplugNSFW)
+  	}
+  	if(props==='assNSFW'){
+  		return(assNSFW)
+  	}
+  	if(props==='athleticNSFW'){
+  		return(athleticNSFW)
+  	}
+  	if(props==='fatNSFW'){
+  		return(fatNSFW)
+  	}
+  	if(props==='bigdickNSFW'){
+  		return(bigdickNSFW)
+  	}
+  	if(props==='bimboNSFW'){
+  		return(bimboNSFW)
+  	}
+  	if(props==='boobsNSFW'){
+  		return(boobsNSFW)
+  	}
+  	if(props==='titfuckNSFW'){
+  		return(titfuckNSFW)
+  	}
+  	if(props==='sexyclothingNSFW'){
+  		return(sexyclothingNSFW)
+  	}
+  	if(props==='sexyclothingNSFW'){
+  		return(sexyclothingNSFW)
+  	}
+  	if(props==='cumNSFW'){
+  		return(cumNSFW)
+  	}
+  	if(props==='asianNSFW'){
+  		return(asianNSFW)
+  	}
+  	if(props==='blackNSFW'){
+  		return(blackNSFW)
+  	}
+  	if(props==='indianNSFW'){
+  		return(indianNSFW)
+  	}
+  	if(props==='bdsmNSFW'){
+  		return(bdsmNSFW)
+  	}
+  	if(props==='cuckoldNSFW,'){
+  		return(cuckoldNSFW)
+  	}
+  	if(props==='otherNSFW'){
+  		return(otherNSFW)
+  	}
+  
+
+
+
+
+
   	else{
   		return(subredditArray)
   	}
   }
   
   imageParser(url){
-
-              let editedUrl = url.replace(/&amp;/g,  "&")
-
-              return (editedUrl)
-
+     let editedUrl = url.replace(/&amp;/g,  "&")
+     return (editedUrl)
   }
 
 //Slider methods
+
   next() {
     this.slider.slickNext()
   }
@@ -315,21 +202,27 @@ class Scroller extends Component {
     return(url.match(/\.(jpeg|jpg|png)$/) != null);
   }
 
+  pressUpOrDown(){
+  	this.goto()
+    this.setState({sliderData: []})
+    this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category))) 
+  }
 //Handling keypresses
   handleKeyDown(e) {
-    console.log(e.key)
+    
      if(e.key==='ArrowUp'){
-      this.goto()
-      this.setState({sliderData: []})
-      this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category))) 
+      this.switchCat()
      }
      if(e.key==='w'){
-      this.goto()
-      this.setState({sliderData: []})
-      this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category))) 
+      this.switchCat()
      }
      if(e.key==='ArrowDown'){
-      
+      this.switchCat()
+     }
+
+     if(e.key==='s'){
+      this.switchCat()
+     
      }
     
 
@@ -348,18 +241,21 @@ class Scroller extends Component {
   }
 
 
- 
+ switchCat(){
+ 	this.goto(0)
+          this.setState({sliderData: []})
+          this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category)))
+ }
   swipedUp(e, deltaY, isFlick) {
     console.log("You Swiped Up...", e, deltaY, isFlick)
-    this.goto(0)
-      this.setState({sliderData: []})
-      this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category))) 
+    if(isFlick===true){
+          this.switchCat()
+     } 
   }
   swipedDown(e, deltaY, isFlick) {
-    console.log("You Swiped Down...", e, deltaY, isFlick)
-    this.goto(0)
-      this.setState({sliderData: []})
-      this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category))) 
+  	if(isFlick===true){
+    	this.switchCat()
+     }
   }
 
 
@@ -367,65 +263,323 @@ class Scroller extends Component {
      let random = Math.floor(Math.random() * array.length);
      return array[random]  
   }
+
+ 
+
+
   render() {
-  	console.log(this.state.activeSlide)
-  	console.log(this.state.activeSlide2)
+  	
+  	console.log(this.state.looper)
+
   let settings = {
-   lazyLoad: "ondemand",
+  swipeToSlide: false,
+   lazyLoad: true,
    speed: 0,
    arrows: false,
    infinite: false,
    slidesToShow: 1,
+   speed: 300,
    slidesToScroll: 1,
    accessibility:false,
    initialSlide: 0,
+
    
     
  }
-  console.log(this.state.sliderData)
+  // <Button style={{backgroundColor: this.props.autoplay===true?'green':'red', color: 'white', position: 'absolute', opacity: '0.4', right: 5}} onClick={this.props.autoplayPress} value={this.props.autoplay}>
+	//          Autoplay: {this.props.autoplay===true?'ON':'OFF'}
+	  //      </Button>
+  // console.log(this.state.sliderData)
 
     return (
     
       <div onKeyDown={ this.handleKeyDown }style={styles.wrapper} >
-        
-      	<h2 style={styles.titlesLeft}>{this.state.subreddit}</h2>
-        <h3 style={styles.titlesRight}>{this.props.category}</h3>
 
-        <Icon onClick={()=>this.props.categorySet('nothing')} style={styles.icon} type="retweet" />
-         
-        <Icon style={styles.iconUp} type="up"/>
+    
+        <div style={styles.switchTitle}>
+        	<Icon onClick={()=>this.props.categorySet('nothing')} style={styles.icon} type="rollback" />
+        	<Icon onClick={()=>this.props.categorySet('nothing')} style={styles.icon} type="setting" />
+         	<h3 style={styles.titlesRight}><Icon type="tag-o"/>{this.props.category}</h3>
+         </div>
+        	<Icon onClick={this.pressUpOrDown}style={styles.iconUp} type="up"/>
+         <button onClick={ 
+  	()=>this.setState({looper: !this.state.looper })}>PLAYPAYUSE</button>
         
-        <Icon style={styles.iconDown} type="down"/>
-        
-        <Icon onClick={this.goto} style={styles.iconRight} type="right"/>
+        <Icon onClick={this.next} style={styles.iconRight} type="right"/>
         
         <Icon onClick={this.previous} style={styles.iconLeft} type="left"/>
 
         {this.state.sliderData.length === 0 && <div style={styles.loaderIcon}><Icon type="loading" /></div>}
 
         <Swipeable
-        onSwipingDown={this.swipedDown}
-        onSwipedUp={this.swipedUp} >
+        onSwipedDown={this.swipedDown}
+        onSwipedUp={this.swipedUp} 
+        >
 
-        
           <Slider  ref={c => this.slider = c } {...settings}>
-			<button autoFocus>{this.state.subreddit}</button>
+
+			<button className="starterButton" autoFocus>
+				<h2 style={styles.subRedditTitle}>{this.state.subreddit}</h2>
+			</button>
 			{this.state.sliderData}
-           
-
           </Slider>
+        <div className="downDiv">
+	        <h2 style={styles.titlesLeft}>{this.state.subreddit}</h2>
+			<Icon onClick={this.pressUpOrDown} style={styles.iconDown} type="down"/>
+		</div>
         </Swipeable>
-
+       
+      					
       </div>
 
     
     );
   }
+
+  getSubreddit(subreddit){
+  
+    console.log(subreddit)
+    this.setState({subreddit: subreddit})
+      fetch(`https://www.reddit.com/r/${subreddit}.json?limit=100`)
+      .then(response => response.json())
+      .then((jsonData) =>{ 
+          let datavar=jsonData.data.children.map((testData,i)=>{
+
+            if(testData.data.post_hint==="link"&&testData.data.preview.reddit_video_preview)   {
+              return(
+                <div ref={this.videoPlayer} style={styles.videoDiv} key={i}>
+                  <Video  autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="none" controls={[]} loop={this.state.looper} className="video" >
+					<source src={this.imageParser(testData.data.preview.images[0].resolutions[1].url)}/>
+                    <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
+                    <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
+                  </Video>
+                 </div>
+              )
+ 
+            }
+
+            if(testData.data.post_hint==="rich:video"&&testData.data.preview.reddit_video_preview)   {
+              return(
+                <div ref={this.videoPlayer} style={styles.videoDiv} key={i}>
+                  <Video  autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="none" className="video" loop={this.state.looper} controls={[]}>
+                    <source src={testData.data.thumbnail}/>
+                    <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
+                    <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
+                  </Video>
+                 </div>
+              )
+
+            }
+            if(testData.data.post_hint==="hosted:video"&&testData.data.preview.reddit_video_preview)   {
+              return(
+                <div ref={this.videoPlayer} style={styles.videoDiv} key={i}>
+                  <Video  autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="none" className="video" loop={this.state.looper} controls={[]}>
+                                        <source src={testData.data.thumbnail}/>
+
+                    <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
+                    <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
+                  </Video>
+                 </div>
+              )
+
+            }
+
+            if(testData.data.post_hint==="image"&&testData.data.preview.reddit_video_preview)   {
+             
+              return(
+                <div ref={this.videoPlayer} style={styles.videoDiv} key={i}>
+                  <Video  autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="none"  loop={this.state.looper} controls={[]} className="video">
+					<source src={this.imageParser(testData.data.preview.images[0].resolutions[1].url)}/>
+  
+                    <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
+                    <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
+                  </Video>
+                </div>
+              )
+
+            }            
+
+            if(testData.data.post_hint==="image"){
+              let sizeRatio= testData.data.preview.images[0].source.height+testData.data.preview.images[0].source.width
+              
+              if (testData.data.preview.images[0].source.height<300){
+                return (
+                  <div style={styles.imgDiv} key={i}>
+                    <img className="image" src={this.imageParser(testData.data.preview.images[0].source.url)} alt="{logo}"/>
+                   </div>
+                 )
+               }
+
+              if (testData.data.preview.images[0].resolutions[3]&&sizeRatio>1500){
+                return (
+                  <div style={styles.imgDiv} key={i}>
+
+                    <img className="image" src={this.imageParser(testData.data.preview.images[0].resolutions[3].url)} alt="{logo}"/>
+                   </div>
+                 )
+               }
+                        
+              if (testData.data.preview.images[0].resolutions[4]&&sizeRatio<1500){
+                return (
+                  <div style={styles.imgDiv} key={i}>
+                    <img className="image" src={this.imageParser(testData.data.preview.images[0].resolutions[4].url)} alt="{logo}"/>
+                  </div>
+                )
+              }
+            }
+                
+        })
+      
+          this.setState({sliderData: datavar})
+      })
+      .catch(error=> console.log('parsing error', error)) 
+  }
 }
 
 export default Scroller;
 
+const styles = {
+  loaderIcon:{
+    fontSize: '40px', 
+    color: 'green', 
+    zIndex: 1,
+    position: 'absolute',
+    top: '50%',
+    left:'50%',
+    height: '0px',
+    width: '0px',
+
+
+  },
+  iconDown:{
+  	opacity: 0.4,
+    fontSize:'40px',
+        zIndex: 1,
+    color: 'white',
+    
+    bottom: 1,
+
+  },
+  iconUp:{
+  	opacity: 0.4,
+    fontSize: '40px',
+    position: 'absolute',
+    margin: 'auto',
+    zIndex: 1,
+    color: 'white',
+    right: '50%',
+    top: 1,
+
+  },
+  iconLeft:{
+  	opacity: 0.4,
+    fontSize: '40px',
+    position: 'absolute',
+    margin: 'auto',
+    zIndex: 1,
+    color: 'white',
+    left: 1,
+    top: '50%',
+
+  },
+  iconRight:{
+  	opacity: 0.4,
+    fontSize: '40px',
+    position: 'absolute',
+    margin: 'auto',
+    zIndex: 1,
+    color: 'white',
+    right: 1,
+    top: '50%',
+
+  },
+  iconRightButton:{
+  	opacity: 1,
+    fontSize: '40px',
+    position: 'absolute',
+    margin: 'auto',
+    zIndex: 1,
+    color: 'white',
+    right: 1,
+    top: '50%',
+    color: '#1bb76e'
+
+ },
+  icon:{
+    fontSize: '40px',
+    zIndex: 1,
+    color: 'white',
+    opacity: '0.4'
+
+  },
+
+
+  titlesLeft:{
+  	fontSize:'120%',
+    
+    margin: 'auto',
+    zIndex: 1,
+    color: 'white',
+    left: '50%',
+    textAlign: 'center',
+    
+    bottom: 40,
+    opacity: 0.4,
+  },
+  titlesRight:{
+  	fontSize: '15px',
+    
+    zIndex: 1,
+    color: 'white',
+    opacity: '0.4',
+    top: '5%',
+  },
 
 
 
+  imgDiv:{
+    backgroundColor:'blue',
+    height: '100%',
+    maxheight: '100vh',
+    maxWidth: '100%',
+    margin: 'auto',
+
+  },
+
+
+  videoDiv:{
+    backgroundColor:'blue',
+    height: '100%',
+    maxheight: '100vh',
+    maxWidth: '100%',
+    margin: 'auto',
+
+  },
+
+
+  wrapper: {
+    height: '100%',
+    width: '100%',
+    maxheight: '100vh'
+  },
  
+  subRedditTitle:{
+  	margin: 'auto',
+  	fontSize: '50px',
+
+  	color: 'white',
+  },
+  switchTitle:{
+  	display: 'flex',
+  	flexDirection: 'column',
+  	float: 'left',
+  	position: 'absolute'
+  },
+
+}
+
+ //        <p style={styles.instructionRight}>"A/D" or "Left/Right Arrow" to show next</p>
+
+	// 			<div style={styles.instructionDown}>"W/S" or "Up/Down Arrow" to switch subreddit</div>
+
+ // 

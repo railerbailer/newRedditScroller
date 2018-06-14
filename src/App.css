@@ -1,20 +1,73 @@
 body{
-	background-color: gray;
+	background-color: black;
+	font-family: 'Roboto', sans-serif;
+
 }
 
 .image{
 	object-fit: contain;
-	height: inherit;
+	
     margin: auto;
-    max-height: 100%;
+    max-height: 100vh;
     max-width: 100%;
+    min-height: 100vh;
+    
 }
 
 .video{
-	height: 758px;
-	width: auto;
+	object-fit: contain;
+	
+    margin: auto;
+    max-height: 100vh;
+    max-width: 100vh;
+    
 }
+
+.logo{
+	font-family: 'Varela Round', sans-serif;
+	color: white;
+	font-size: 250%;
+}
+
+p{
+	color: white;
+}
+
 
 button{
 	border: 0;
+	background-color: black;
+	color: gray;
+	z-index: 10000;
+
 }
+.starterButton{
+	display: flex;
+	max-height: 100vh;
+	min-height: 100vh;
+
+}
+
+.rh5v-DefaultPlayer_video{
+	min-height: 100vh;
+	max-height: 100vh;
+}
+
+
+.upDiv{
+	position: absolute;
+	display: flex;
+	left: 50%;
+	flex-direction: column;
+}
+
+.downDiv{
+	position: absolute;
+	text-align: center;
+	display: flex;
+	bottom: 1%;
+	left: 50%;
+	flex-direction: column;
+}
+
+
