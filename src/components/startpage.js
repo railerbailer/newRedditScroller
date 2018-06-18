@@ -32,7 +32,7 @@ class Startpage extends Component {
 		     <h1 className="logo">sliddit. BETA</h1>
 		     
 		   </div>
-	       <div className="rightCol" style={{opacity: 0.5, fontSize: '50%'}}>
+	       <div className="rightCol" style={{opacity: 0.5, fontSize: '80%'}}>
 	        
 	       <p><Icon type="arrow-up" />for category shuffle 
 	      <br></br><Icon type="arrow-right" />switch post</p>
