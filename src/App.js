@@ -52,10 +52,10 @@ class App extends Component {
     if(this.state.category!=='nothing'){
       if(this.state.nsfwAccept===false){
             return (
-              <div style={{position: 'absolute',top: '25%', left: '40%', align: 'center', textAlign: 'center'}}>
-                    <p style={{color: 'white'}}>NSFW CONTENT! Are you over 18</p>
-                    <Button onClick={()=>this.setState({nsfwAccept: true})}>Yes</Button>
-                    <Button  onClick={()=>this.setState({nsfwAccept: false, category: 'nothing'})}>No</Button>             
+              <div className="ageConsent">
+                    <p style={{color: 'white'}}>NSFW CONTENT! Are you over 18?</p>
+                    <Button style={{width: '40%', height: '50px', backgroundColor: 'green', marginRight: '5%'}} onClick={()=>this.setState({nsfwAccept: true})}>Yes</Button>
+                    <Button  style={{width: '40%', height: '50px', backgroundColor: 'red', marginLeft: '5%'}}onClick={()=>this.setState({nsfwAccept: false, category: 'nothing'})}>No</Button>             
               </div>
 
               )

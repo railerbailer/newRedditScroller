@@ -293,23 +293,22 @@ class Scroller extends Component {
 
     return (
     
-      <div onKeyDown={ this.handleKeyDown }style={styles.wrapper} >
+      <div onKeyDown={ this.handleKeyDown }className="wrapper">
 
     
-        <div style={styles.switchTitle}>
-        	<Icon onClick={()=>this.props.categorySet('nothing')} style={styles.icon} type="rollback" />
-        	<Icon onClick={()=>this.props.categorySet('nothing')} style={styles.icon} type="setting" />
-         	<h3 style={styles.titlesRight}><Icon type="tag-o"/>{this.props.category}</h3>
+        <div className="switchTitle">
+        	<Icon onClick={()=>this.props.categorySet('nothing')} className="icon" type="rollback" />
+        	<Icon onClick={()=>this.props.categorySet('nothing')} className="icon" type="setting" />
+         	<h3 className="titlesRight"><Icon type="tag-o"/>{this.props.category}</h3>
          </div>
-        	<Icon onClick={this.pressUpOrDown}style={styles.iconUp} type="up"/>
-         <button onClick={ 
-  	()=>this.setState({looper: !this.state.looper })}>PLAYPAYUSE</button>
+        
+        <Icon onClick={this.pressUpOrDown}className="iconUp" type="up"/>
         
         <Icon onClick={this.next} style={styles.iconRight} type="right"/>
         
         <Icon onClick={this.previous} style={styles.iconLeft} type="left"/>
 
-        {this.state.sliderData.length === 0 && <div style={styles.loaderIcon}><Icon type="loading" /></div>}
+        {this.state.sliderData.length === 0 && <div className="loaderIcon"><Icon type="loading" /></div>}
 
         <Swipeable
         onSwipedDown={this.swipedDown}
@@ -319,13 +318,13 @@ class Scroller extends Component {
           <Slider  ref={c => this.slider = c } {...settings}>
 
 			<button className="starterButton" autoFocus>
-				<h2 style={styles.subRedditTitle}>{this.state.subreddit}</h2>
+				<h2 className="subRedditTitle">{this.state.subreddit}</h2>
 			</button>
 			{this.state.sliderData}
           </Slider>
         <div className="downDiv">
-	        <h2 style={styles.titlesLeft}>{this.state.subreddit}</h2>
-			<Icon onClick={this.pressUpOrDown} style={styles.iconDown} type="down"/>
+	        <h2 className="titlesLeft">{this.state.subreddit}</h2>
+			<Icon onClick={this.pressUpOrDown} className="iconDown" type="down"/>
 		</div>
         </Swipeable>
        
@@ -347,7 +346,7 @@ class Scroller extends Component {
 
             if(testData.data.post_hint==="link"&&testData.data.preview.reddit_video_preview)   {
               return(
-                <div ref={this.videoPlayer} style={styles.videoDiv} key={i}>
+                <div ref={this.videoPlayer} className="videoDiv" key={i}>
                   <Video  autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="none" controls={[]} loop={this.state.looper} className="video" >
 					<source src={this.imageParser(testData.data.preview.images[0].resolutions[1].url)}/>
                     <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
@@ -360,7 +359,7 @@ class Scroller extends Component {
 
             if(testData.data.post_hint==="rich:video"&&testData.data.preview.reddit_video_preview)   {
               return(
-                <div ref={this.videoPlayer} style={styles.videoDiv} key={i}>
+                <div ref={this.videoPlayer} className="videoDiv" key={i}>
                   <Video  autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="none" className="video" loop={this.state.looper} controls={[]}>
                     <source src={testData.data.thumbnail}/>
                     <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
@@ -372,7 +371,7 @@ class Scroller extends Component {
             }
             if(testData.data.post_hint==="hosted:video"&&testData.data.preview.reddit_video_preview)   {
               return(
-                <div ref={this.videoPlayer} style={styles.videoDiv} key={i}>
+                <div ref={this.videoPlayer} className="videoDiv" key={i}>
                   <Video  autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="none" className="video" loop={this.state.looper} controls={[]}>
                                         <source src={testData.data.thumbnail}/>
 
@@ -387,7 +386,7 @@ class Scroller extends Component {
             if(testData.data.post_hint==="image"&&testData.data.preview.reddit_video_preview)   {
              
               return(
-                <div ref={this.videoPlayer} style={styles.videoDiv} key={i}>
+                <div ref={this.videoPlayer} className="videoDiv" key={i}>
                   <Video  autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="none"  loop={this.state.looper} controls={[]} className="video">
 					<source src={this.imageParser(testData.data.preview.images[0].resolutions[1].url)}/>
   
@@ -404,7 +403,7 @@ class Scroller extends Component {
               
               if (testData.data.preview.images[0].source.height<300){
                 return (
-                  <div style={styles.imgDiv} key={i}>
+                  <div className="imgDiv" key={i}>
                     <img className="image" src={this.imageParser(testData.data.preview.images[0].source.url)} alt="{logo}"/>
                    </div>
                  )
@@ -412,7 +411,7 @@ class Scroller extends Component {
 
               if (testData.data.preview.images[0].resolutions[3]&&sizeRatio>1500){
                 return (
-                  <div style={styles.imgDiv} key={i}>
+                  <div className="imgDiv" key={i}>
 
                     <img className="image" src={this.imageParser(testData.data.preview.images[0].resolutions[3].url)} alt="{logo}"/>
                    </div>
@@ -421,7 +420,7 @@ class Scroller extends Component {
                         
               if (testData.data.preview.images[0].resolutions[4]&&sizeRatio<1500){
                 return (
-                  <div style={styles.imgDiv} key={i}>
+                  <div className="imgDiv" key={i}>
                     <img className="image" src={this.imageParser(testData.data.preview.images[0].resolutions[4].url)} alt="{logo}"/>
                   </div>
                 )
@@ -439,40 +438,8 @@ class Scroller extends Component {
 export default Scroller;
 
 const styles = {
-  loaderIcon:{
-    fontSize: '40px', 
-    color: 'green', 
-    zIndex: 1,
-    position: 'absolute',
-    top: '50%',
-    left:'50%',
-    height: '0px',
-    width: '0px',
-
-
-  },
-  iconDown:{
-  	opacity: 0.4,
-    fontSize:'40px',
-        zIndex: 1,
-    color: 'white',
-    
-    bottom: 1,
-
-  },
-  iconUp:{
-  	opacity: 0.4,
-    fontSize: '40px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    right: '50%',
-    top: 1,
-
-  },
-  iconLeft:{
-  	opacity: 0.4,
+   iconLeft:{
+    opacity: 0.4,
     fontSize: '40px',
     position: 'absolute',
     margin: 'auto',
@@ -483,103 +450,21 @@ const styles = {
 
   },
   iconRight:{
-  	opacity: 0.4,
-    fontSize: '40px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    right: 1,
-    top: '50%',
-
-  },
-  iconRightButton:{
-  	opacity: 1,
-    fontSize: '40px',
-    position: 'absolute',
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    right: 1,
-    top: '50%',
-    color: '#1bb76e'
-
- },
-  icon:{
-    fontSize: '40px',
-    zIndex: 1,
-    color: 'white',
-    opacity: '0.4'
-
-  },
-
-
-  titlesLeft:{
-  	fontSize:'120%',
-    
-    margin: 'auto',
-    zIndex: 1,
-    color: 'white',
-    left: '50%',
-    textAlign: 'center',
-    
-    bottom: 40,
     opacity: 0.4,
-  },
-  titlesRight:{
-  	fontSize: '15px',
-    
+    fontSize: '40px',
+    position: 'absolute',
+    margin: 'auto',
     zIndex: 1,
     color: 'white',
-    opacity: '0.4',
-    top: '5%',
-  },
-
-
-
-  imgDiv:{
-    backgroundColor:'blue',
-    height: '100%',
-    maxheight: '100vh',
-    maxWidth: '100%',
-    margin: 'auto',
+    right: 1,
+    top: '50%',
 
   },
+};
 
 
-  videoDiv:{
-    backgroundColor:'blue',
-    height: '100%',
-    maxheight: '100vh',
-    maxWidth: '100%',
-    margin: 'auto',
+ //        <p className="instructionRight}>"A/D" or "Left/Right Arrow" to show next</p>
 
-  },
-
-
-  wrapper: {
-    height: '100%',
-    width: '100%',
-    maxheight: '100vh'
-  },
- 
-  subRedditTitle:{
-  	margin: 'auto',
-  	fontSize: '50px',
-
-  	color: 'white',
-  },
-  switchTitle:{
-  	display: 'flex',
-  	flexDirection: 'column',
-  	float: 'left',
-  	position: 'absolute'
-  },
-
-}
-
- //        <p style={styles.instructionRight}>"A/D" or "Left/Right Arrow" to show next</p>
-
-	// 			<div style={styles.instructionDown}>"W/S" or "Up/Down Arrow" to switch subreddit</div>
+	// 			<div className="instructionDown}>"W/S" or "Up/Down Arrow" to switch subreddit</div>
 
  // 
