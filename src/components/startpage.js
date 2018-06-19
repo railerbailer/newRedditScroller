@@ -26,60 +26,36 @@ class Startpage extends Component {
 
     return (
 	    <div>
-	    <div>
-     <div className="startWrap">
-		   <div className="leftCol">
-		     <h1 className="logo">sliddit. BETA</h1>
-		     
-		   </div>
-	       <div className="rightCol" style={{opacity: 0.5, fontSize: '80%'}}>
-	        
-	       <p><Icon type="arrow-up" />for category shuffle 
-	      <br></br><Icon type="arrow-right" />switch post</p>
-
-		   </div>
-		   <div>
-			    <p style={{marginBottom: '1%'}}>Autoplay Video</p>
-			    <Switch checkedChildren="OFF" unCheckedChildren="ON" 
-			    style={{backgroundColor: this.props.autoplay===true?'green':'red', 
-			    color: 'white', minWidth: '50%'
-			    }} onClick={this.props.autoplayPress} value={this.props.autoplay}>
-			    </Switch>
-		    </div>
- 		   
-		</div>
-	    </div>
+	   
 	      <div className="startWrap">
-		      
+
 		      <div className="leftCol">
-		      <Button className="NSFW" onClick={e=>this.props.categorySet(e.target.value)} value="NSFW">
-		          Random NSFW
-		        </Button>
-		       <Button className="randomCat" onClick={e=>this.props.categorySet(e.target.value)} value="NORMAL">
-		          Random Subreddit (SFW)
-		        </Button>
-		        
+			      <div className="">
+				      <h1 className="logo">sliddit. BETA</h1>
+				  </div>
+			      <Button className="NSFW" onClick={e=>this.props.categorySet(e.target.value)} value="NSFW">
+			          NSFW
+			        </Button>
+			       <Button className="randomCat" onClick={e=>this.props.categorySet(e.target.value)} value="Normal">
+			          All sfw
+			        </Button>
+			      </div>
+			   <div className="rightCol">
+			       <Button className="OTHER1" onClick={e=>this.props.categorySet(e.target.value)} value="Art">
+			          Art
+			        </Button>
+			        <Button className="OTHER2" onClick={e=>this.props.categorySet(e.target.value)} value="Food">
+			          Food
+			        </Button>
 		      </div>
-		      <div className="rightCol">
-		       <Button className="OTHER1" onClick={e=>this.props.categorySet(e.target.value)} value="NSFW">
-		          OTHERCAT1
-		        </Button>
-		        <Button className="OTHER2" onClick={e=>this.props.categorySet(e.target.value)} value="NSFW">
-		          OTHERCAT2
-		        </Button>
-		      </div>
-		       
 	       </div>
-	        
 	       <div> 
-
-	      
-	      
-
-	        
+				<Switch checkedChildren="Autoplay:OFF" unCheckedChildren="Autoplay:ON" 
+					    style={{backgroundColor: this.props.autoplay===true?'green':'red', 
+					    color: 'white', width: '10%'
+					    }} onClick={this.props.autoplayPress} value={this.props.autoplay}>
+				</Switch>
 	      	</div>
-	      
-
 	    </div>
     );
   }

@@ -4,31 +4,7 @@ import Swipeable from 'react-swipeable'
 import 'antd/dist/antd.css';
 import { Icon, Button } from 'antd';
 import videoConnect from 'react-html5video';
-import {subredditArray, NSFW, gifsArray,
-alternativeNSFW,
-tattooNSFW,
-amateurNSFW,
-collegeNSFW,
-gonewildNSFW,
-selfieNSFW,
-analNSFW,
-buttplugNSFW,
-assNSFW,
-athleticNSFW,
-fatNSFW,
-bigdickNSFW,
-bimboNSFW,
- boobsNSFW,
-titfuckNSFW,
-sexyclothingNSFW,
-pornnetworksNSFW,
-cumNSFW,
- asianNSFW,
-blackNSFW,
- indianNSFW,
-bdsmNSFW,
- otherNSFW,
-cuckoldNSFW,} from '../subreddits'
+import {subredditArray, NSFW, artArray, foodArray } from '../subreddits'
 import logo from '../logo.svg'
 import '../App.css'
 import { DefaultPlayer as Video, togglePause, PlayPause } from 'react-html5video';
@@ -80,92 +56,18 @@ class Scroller extends Component {
   
 
   dataHandler(props){
-  	if(props==='GIFS'){
-  		return(gifsArray)
-  	}
   	if(props==='NSFW'){
   		return(NSFW)
   	}
   	if(props==='NORMAL'){
   		return(subredditArray)
   	}
-  	if(props==='alternativeNSFW'){
-  		return(alternativeNSFW)
+  	if(props==='Art'){
+  		return(artArray)
   	}
-  	if(props==='tattooNSFW'){
-  		return(tattooNSFW)
+  	if(props==='Food'){
+  		return(foodArray)
   	}
-  	if(props==='amateurNSFW'){
-  		return(amateurNSFW)
-  	}
-  	if(props==='collegeNSFW'){
-  		return(collegeNSFW)
-  	}
-  	if(props==='gonewildNSFW'){
-  		return(gonewildNSFW)
-  	}
-  	if(props==='selfieNSFW'){
-  		return(selfieNSFW)
-  	}
-  	if(props==='analNSFW'){
-  		return(analNSFW)
-  	}
-  	if(props==='buttplugNSFW'){
-  		return(buttplugNSFW)
-  	}
-  	if(props==='assNSFW'){
-  		return(assNSFW)
-  	}
-  	if(props==='athleticNSFW'){
-  		return(athleticNSFW)
-  	}
-  	if(props==='fatNSFW'){
-  		return(fatNSFW)
-  	}
-  	if(props==='bigdickNSFW'){
-  		return(bigdickNSFW)
-  	}
-  	if(props==='bimboNSFW'){
-  		return(bimboNSFW)
-  	}
-  	if(props==='boobsNSFW'){
-  		return(boobsNSFW)
-  	}
-  	if(props==='titfuckNSFW'){
-  		return(titfuckNSFW)
-  	}
-  	if(props==='sexyclothingNSFW'){
-  		return(sexyclothingNSFW)
-  	}
-  	if(props==='sexyclothingNSFW'){
-  		return(sexyclothingNSFW)
-  	}
-  	if(props==='cumNSFW'){
-  		return(cumNSFW)
-  	}
-  	if(props==='asianNSFW'){
-  		return(asianNSFW)
-  	}
-  	if(props==='blackNSFW'){
-  		return(blackNSFW)
-  	}
-  	if(props==='indianNSFW'){
-  		return(indianNSFW)
-  	}
-  	if(props==='bdsmNSFW'){
-  		return(bdsmNSFW)
-  	}
-  	if(props==='cuckoldNSFW,'){
-  		return(cuckoldNSFW)
-  	}
-  	if(props==='otherNSFW'){
-  		return(otherNSFW)
-  	}
-  
-
-
-
-
 
   	else{
   		return(subredditArray)
@@ -278,7 +180,7 @@ class Scroller extends Component {
    arrows: false,
    infinite: false,
    slidesToShow: 1,
-   speed: 300,
+   speed: 600,
    slidesToScroll: 1,
    accessibility:false,
    initialSlide: 0,
@@ -297,16 +199,26 @@ class Scroller extends Component {
 
     
         <div className="switchTitle">
-        	<Icon onClick={()=>this.props.categorySet('nothing')} className="icon" type="rollback" />
-        	<Icon onClick={()=>this.props.categorySet('nothing')} className="icon" type="setting" />
-         	<h3 className="titlesRight"><Icon type="tag-o"/>{this.props.category}</h3>
+        	<Icon onClick={()=>this.props.categorySet('nothing')} className="iconBack" type="rollback" />
+         	
          </div>
-        
+         <div className="iconSetting">
+          <Icon onClick={()=>this.props.categorySet('nothing')} type="setting" />
+          <div className="titlesRight">
+          <h3 style={{color: 'white', fontSize: '40%'}}><Icon type="tag-o"/>{this.props.category}</h3>
+          </div>
+         </div>
         <Icon onClick={this.pressUpOrDown}className="iconUp" type="up"/>
         
         <Icon onClick={this.next} style={styles.iconRight} type="right"/>
         
         <Icon onClick={this.previous} style={styles.iconLeft} type="left"/>
+        <div className="downDiv">
+            <h2 className="titlesLeft">{this.state.subreddit}
+            
+            </h2>
+                <Icon onClick={this.pressUpOrDown} className="iconDown" type="down"/>
+          </div>
 
         {this.state.sliderData.length === 0 && <div className="loaderIcon"><Icon type="loading" /></div>}
 
@@ -321,13 +233,11 @@ class Scroller extends Component {
 				<h2 className="subRedditTitle">{this.state.subreddit}</h2>
 			</button>
 			{this.state.sliderData}
+
           </Slider>
-        <div className="downDiv">
-	        <h2 className="titlesLeft">{this.state.subreddit}</h2>
-			<Icon onClick={this.pressUpOrDown} className="iconDown" type="down"/>
-		</div>
+          
         </Swipeable>
-       
+      
       					
       </div>
 
@@ -440,24 +350,30 @@ export default Scroller;
 const styles = {
    iconLeft:{
     opacity: 0.4,
-    fontSize: '40px',
+    width: '10%',
     position: 'absolute',
     margin: 'auto',
     zIndex: 1,
     color: 'white',
     left: 1,
     top: '50%',
+    textAlign: 'left',
+    height: '50%',
+
 
   },
   iconRight:{
     opacity: 0.4,
-    fontSize: '40px',
+    
     position: 'absolute',
     margin: 'auto',
     zIndex: 1,
     color: 'white',
     right: 1,
     top: '50%',
+    textAlign: 'right',
+    height: '50%',
+    width: '10%',
 
   },
 };

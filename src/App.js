@@ -44,7 +44,7 @@ class App extends Component {
   }
 
   renderContent(){
-    if(this.state.category!=='nothing'&&this.state.category==='NORMAL'){
+    if(this.state.category!=='nothing'&&this.state.category!=='NSFW'){
       return(<Scroller autoplay={this.state.autoplay} categorySet={this.categorySet} category={this.state.category}/>
       )
     }
@@ -54,8 +54,8 @@ class App extends Component {
             return (
               <div className="ageConsent">
                     <p style={{color: 'white'}}>NSFW CONTENT! Are you over 18?</p>
-                    <Button style={{width: '40%', height: '50px', backgroundColor: 'green', marginRight: '5%'}} onClick={()=>this.setState({nsfwAccept: true})}>Yes</Button>
-                    <Button  style={{width: '40%', height: '50px', backgroundColor: 'red', marginLeft: '5%'}}onClick={()=>this.setState({nsfwAccept: false, category: 'nothing'})}>No</Button>             
+                    <Button style={{width: '100px', height: '50px', backgroundColor: '#98FB98', marginRight: '1%'}} onClick={()=>this.setState({nsfwAccept: true})}>Yes</Button>
+                    <Button  style={{width: '100px', height: '50px', backgroundColor: '#F08080', marginLeft: '1%'}}onClick={()=>this.setState({nsfwAccept: false, category: 'nothing'})}>No</Button>             
               </div>
 
               )

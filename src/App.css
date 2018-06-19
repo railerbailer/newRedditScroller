@@ -4,24 +4,7 @@ body{
 
 }
 
-.image{
-	object-fit: contain;
-	
-    margin: auto;
-    max-height: 100vh;
-    max-width: 100%;
-    min-height: 100vh;
-    
-}
 
-.video{
-	object-fit: contain;
-	
-    margin: auto;
-    max-height: 100vh;
-    max-width: 100vh;
-    
-}
 
 .logo{
 	font-family: 'Varela Round', sans-serif;
@@ -61,14 +44,6 @@ button{
 	flex-direction: column;
 }
 
-.downDiv{
-	position: absolute;
-	text-align: center;
-	display: flex;
-	bottom: 1%;
-	left: 50%;
-	flex-direction: column;
-}
 
   .loaderIcon{
     font-size: 40px; 
@@ -82,18 +57,33 @@ button{
 
 
   }
+
+.downDiv{
+  position: absolute;
+  display: flex;
+  text-align: right;
+  bottom: 1%;
+  width: 100%;
+  flex-direction: column;
+ margin: auto;
+}
+.downDiv h2{
+ 
+ 
+}
+
   .iconDown{
-  	opacity: 0.4;
-    font-size:40px;
-    z-index: 1;
+
+opacity: 0.4;
+    z-index: 9999999999999;
     color: white;
     
-    bottom: 1;
+
 
   }
   .iconUp{
   	opacity: 0.4;
-    font-size: 40px;
+    
     position: absolute;
     margin: auto;
     z-index: 1;
@@ -136,12 +126,22 @@ button{
     color: #1bb76e
 
  }
-  .icon{
+  .iconSetting{
+    position: absolute;
+    right: 1%;
+    font-size: 40px;
+    z-index: 1;
+    color: white;
+    opacity: 0.4;
+    text-align: right;
+
+  }
+
+  .iconBack{
     font-size: 40px;
     z-index: 1;
     color: white;
     opacity: 0.4
-
   }
 
 
@@ -157,30 +157,45 @@ button{
   }
 
   .titlesRight:{
-  	font-size: 15px;
-    
     z-index: 1;
-    color: white;
+   font-size: 1px;
     opacity: 0.4;
-    top: 5%;
+    
   }
+
+.image{
+  object-fit: contain;
+    margin: auto;
+    height: 100vh;
+    max-height: 100%;
+    max-width: 100%;
+   
+    
+}
 
 
 
   .imgDiv{
     backgroundColor:blue;
-    height: 100%;
-    max-height: 100vh;
+    height: 100vh;
+    max-height: 100%;
     max-width: 100%;
     margin: auto;
 
   }
 
-
+.video{
+  object-fit: contain;
+    margin: auto;
+   height: 100vh;
+    max-height: 90%;
+    max-width: 100vh;
+    
+}
   .videoDiv{
     backgroundColor:blue;
-    height: 100%;
-    max-height: 100vh;
+    height: 100vh;
+    max-height: 100%;
     max-width: 100%;
     margin: auto;
 
@@ -188,9 +203,11 @@ button{
 
 
   .wrapper{
-    height: 100%;
+    max-height: 100%;
     width: 100%;
-    max-height: 100vh
+    max-height: 100vh;
+    overflow: hidden;
+
   }
  
   .subRedditTitle{
@@ -200,16 +217,21 @@ button{
   	color: white;
   }
   .switchTitle{
+    z-index: 199999;
   	display: flex;
   	flex-direction: column;
   	float: left;
-  	position: absolute;
+    position: absolute;
+  	
   }
 
 
    .startWrap{
    	display: flex;
     flex-direction: row;
+    height: 95vh;
+
+
     	
 
     }
@@ -217,12 +239,15 @@ button{
     .startWrap button{
     	border: 0 !important;
     	border-radius: 0.1px;
+      font-family: 'Roboto', sans-serif;
+      color: white;
+      font-size:40px; 
     }
 	.randomCat {
 		width: 100%;
 		height:20vh;
 		marginTop: 1%;
-      	background-color: green;
+      	background-color: #6ed3cf;
       	color: black;
     }
    
@@ -230,19 +255,21 @@ button{
     	marginTop: 1%;
     	width: 100%;
     	height:30vh;
-      	background-color: red;
-      	color: black;
+      	background-color: #e62739;
     }
 
     .OTHER2{
+      background-color: #9068be;
     	width: 100%;
     	height: 40vh;
     	background-color: blue;
     }
     .OTHER1{
+      background-color: #e1e8f0;
     	height: 20vh;
     	width: 100%;
     	background-color: pink;
+
     }
 
     .rightCol{
@@ -253,14 +280,15 @@ button{
     }
     .leftCol{
     	width: 50%;
+
     	display: flex;
     	flex-direction: column;
 
     }
 
     .ageConsent{
-      position: absolute;
-      top: 25%; 
+      position: relative;
+      margin: auto;
       
       align: center;
       text-align: center;
