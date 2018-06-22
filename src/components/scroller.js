@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Slider from 'react-slick'
 import Swipeable from 'react-swipeable'
 import 'antd/dist/antd.css';
-import { Icon, Button } from 'antd';
+import { Icon, Button, Popover } from 'antd';
 import videoConnect from 'react-html5video';
 import {subredditArray, NSFW, artArray, foodArray } from '../subreddits'
 import logo from '../logo.svg'
@@ -11,10 +11,11 @@ import { DefaultPlayer as Video, togglePause, PlayPause } from 'react-html5video
 import 'react-html5video/dist/styles.css';
 
 
+
 // import ArrowKeysReact from 'arrow-keys-react';
 
 
- 
+
 class Scroller extends Component {
   constructor(props){
     super(props)
@@ -22,10 +23,13 @@ class Scroller extends Component {
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.swipedUp = this.swipedUp.bind(this)
     this.swipedDown = this.swipedDown.bind(this)
+    this.swipedLeft = this.swipedLeft.bind(this)
+    this.swipedRight = this.swipedRight.bind(this)
     this.next = this.next.bind(this)
     this.previous = this.previous.bind(this)
     this.goto = this.goto.bind(this)
     this.pressUpOrDown = this.pressUpOrDown.bind(this)
+    this.switchCat = this.switchCat.bind(this)
     
 
     
@@ -34,7 +38,11 @@ class Scroller extends Component {
       subreddit: '',
       activeSlide:0,
       activeSlide2:0,
-      looper: false
+      looper: false,
+      visibleUp: true,
+      visibleSide: true,
+      visibleBackLeft: false,
+      alreadyChecked: false
       
     }  
   }
@@ -82,10 +90,22 @@ class Scroller extends Component {
 //Slider methods
 
   next() {
-    this.slider.slickNext()
+    this.setState({visibleSide: false})
+    if(this.state.visibleSide===false){
+      this.slider.slickNext()
+      
+      console.log(this.state.alreadyChecked)
+      if(this.state.alreadyChecked===false){
+        this.setState({visibleBackLeft: true, alreadyChecked: true})
+        
+      }
+    }
   }
   previous() {
-    this.slider.slickPrev()
+    this.setState({visibleBackLeft: false})
+    if(this.state.visibleBackLeft===false&&this.state.visibleSide===false){
+      this.slider.slickPrev()
+    }
   }
 
   focus(){
@@ -106,6 +126,7 @@ class Scroller extends Component {
 
   pressUpOrDown(){
   	this.goto()
+    this.setState({visibleUp: !this.state.visibleUp})
     this.setState({sliderData: []})
     this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category))) 
   }
@@ -144,18 +165,39 @@ class Scroller extends Component {
 
 
  switchCat(){
+  this.setState({visibleUp: false})
+  
+  if(this.state.visibleUp===false){
  	this.goto(0)
-          this.setState({sliderData: []})
-          this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category)))
+  this.setState({sliderData: []})
+  this.getSubreddit(this.shuffleArray(this.dataHandler(this.props.category)))
+  }
+
  }
+  
+  swipedLeft(e, absX, isFlick) {
+    if(isFlick||absX>30){
+      this.next()
+
+    }
+    console.log("You're Swiping to the Left...", absX)
+  }
+
+  swipedRight(e, absX, isFlick) {
+    if(isFlick){
+      this.previous()
+    }
+    console.log("You're Swiping to the Right...", absX , e)
+  }
+
   swipedUp(e, deltaY, isFlick) {
     console.log("You Swiped Up...", e, deltaY, isFlick)
-    if(isFlick===true){
+    if(isFlick){
           this.switchCat()
      } 
   }
   swipedDown(e, deltaY, isFlick) {
-  	if(isFlick===true){
+  	if(isFlick){
     	this.switchCat()
      }
   }
@@ -171,16 +213,28 @@ class Scroller extends Component {
 
   render() {
   	
-  	console.log(this.state.looper)
+    console.log(this.state.sliderData)
+const SwitchCategoryContent = (
+  <div >
+    <p style={{color: 'black'}}>Click S / Down Arrow / Swipe or
+    <br/>click here to switch subreddit</p>
+  </div>
+);
+
+const NextPostContent = (
+  <div >
+    <p style={{color: 'black'}}>Swipe / Click D / Right arrow or 
+    <br/>click here to go to the next post</p>
+  </div>
+);
 
   let settings = {
-  swipeToSlide: false,
-   lazyLoad: true,
-   speed: 0,
+  swipeToSlide: 'false',
+   lazyLoad: 'ondemand',
    arrows: false,
    infinite: false,
    slidesToShow: 1,
-   speed: 600,
+   speed: 100,
    slidesToScroll: 1,
    accessibility:false,
    initialSlide: 0,
@@ -192,15 +246,11 @@ class Scroller extends Component {
 	//          Autoplay: {this.props.autoplay===true?'ON':'OFF'}
 	  //      </Button>
   // console.log(this.state.sliderData)
-
+console.log(this.state.visible)
     return (
-    
       <div onKeyDown={ this.handleKeyDown }className="wrapper">
-
-    
         <div className="switchTitle">
         	<Icon onClick={()=>this.props.categorySet('nothing')} className="iconBack" type="rollback" />
-         	
          </div>
          <div className="iconSetting">
           <Icon onClick={()=>this.props.categorySet('nothing')} type="setting" />
@@ -208,46 +258,43 @@ class Scroller extends Component {
           <h3 style={{color: 'white', fontSize: '40%'}}><Icon type="tag-o"/>{this.props.category}</h3>
           </div>
          </div>
-        <Icon onClick={this.pressUpOrDown}className="iconUp" type="up"/>
-        
-        <Icon onClick={this.next} style={styles.iconRight} type="right"/>
-        
+        <Icon onClick={this.switchCat}
+        className="iconUp" type="up">
+        </Icon>
+       
+      <Popover visible={this.state.visibleSide}  placement="right" title="Show next post" content={NextPostContent} trigger="click">
+        <Icon onClick={this.next} 
+        style={styles.iconRight} type="right"/>
+      </Popover>  
         <Icon onClick={this.previous} style={styles.iconLeft} type="left"/>
+      <Icon type="close" />
         <div className="downDiv">
-            <h2 className="titlesLeft">{this.state.subreddit}
-            
-            </h2>
-                <Icon onClick={this.pressUpOrDown} className="iconDown" type="down"/>
-          </div>
-
-        {this.state.sliderData.length === 0 && <div className="loaderIcon"><Icon type="loading" /></div>}
-
+          <h2 className="titlesLeft">{this.state.subreddit}</h2>
+        <Popover visible={this.state.visibleUp}  placement="bottom" title="Switch category" content={SwitchCategoryContent}>
+          <Icon onClick={this.switchCat} className="iconDown" type="down"/>
+        </Popover>
+        </div>
         <Swipeable
-        onSwipedDown={this.swipedDown}
-        onSwipedUp={this.swipedUp} 
+          onSwipedDown={this.swipedDown}
+          onSwipedUp={this.swipedUp} 
+          onSwipedLeft={this.swipedLeft}
+          onSwipedRight={this.swipedRight}
         >
-
-          <Slider  ref={c => this.slider = c } {...settings}>
-
-			<button className="starterButton" autoFocus>
-				<h2 className="subRedditTitle">{this.state.subreddit}</h2>
-			</button>
-			{this.state.sliderData}
-
+          <Slider ref={c => this.slider = c } {...settings}>
+    			  <button className="starterButton" autoFocus>
+      			
+              {this.state.sliderData.length === 0?<div className="subRedditTitle">Finding subreddit...<Icon type="loading" /></div>: <h2 className="subRedditTitle">{this.state.subreddit}</h2>}
+        	 </button>
+        		 {this.state.sliderData}
           </Slider>
-          
-        </Swipeable>
-      
-      					
+        </Swipeable>				
       </div>
-
-    
     );
   }
 
   getSubreddit(subreddit){
   
-    console.log(subreddit)
+    // console.log(subreddit)
     this.setState({subreddit: subreddit})
       fetch(`https://www.reddit.com/r/${subreddit}.json?limit=100`)
       .then(response => response.json())
@@ -255,10 +302,11 @@ class Scroller extends Component {
           let datavar=jsonData.data.children.map((testData,i)=>{
 
             if(testData.data.post_hint==="link"&&testData.data.preview.reddit_video_preview)   {
+              
               return(
                 <div ref={this.videoPlayer} className="videoDiv" key={i}>
-                  <Video  autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="none" controls={[]} loop={this.state.looper} className="video" >
-					<source src={this.imageParser(testData.data.preview.images[0].resolutions[1].url)}/>
+                  <Video  autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="metaData" controls={[]} loop={testData.data.preview.reddit_video_preview.duration<5?true:false} className="video" >
+					          <source src={this.imageParser(testData.data.preview.images[0].resolutions[1].url)}/>
                     <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
                     <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
                   </Video>
@@ -270,7 +318,7 @@ class Scroller extends Component {
             if(testData.data.post_hint==="rich:video"&&testData.data.preview.reddit_video_preview)   {
               return(
                 <div ref={this.videoPlayer} className="videoDiv" key={i}>
-                  <Video  autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="none" className="video" loop={this.state.looper} controls={[]}>
+                  <Video  autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="metaData" className="video" loop={testData.data.preview.reddit_video_preview.duration<5?true:false} controls={[]}>
                     <source src={testData.data.thumbnail}/>
                     <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
                     <p>Your browser doesn't support HTML5 video. Here is a <a href={testData.data.preview.reddit_video_preview.scrubber_media_url}>link to the video</a> instead.</p>
@@ -282,7 +330,7 @@ class Scroller extends Component {
             if(testData.data.post_hint==="hosted:video"&&testData.data.preview.reddit_video_preview)   {
               return(
                 <div ref={this.videoPlayer} className="videoDiv" key={i}>
-                  <Video  autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="none" className="video" loop={this.state.looper} controls={[]}>
+                  <Video  autoPlay={this.props.autoplay} poster={testData.data.thumbnail} preload="metaData" className="video" loop={testData.data.preview.reddit_video_preview.duration<5?true:false} controls={[]}>
                                         <source src={testData.data.thumbnail}/>
 
                     <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
@@ -297,7 +345,7 @@ class Scroller extends Component {
              
               return(
                 <div ref={this.videoPlayer} className="videoDiv" key={i}>
-                  <Video  autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="none"  loop={this.state.looper} controls={[]} className="video">
+                  <Video  autoPlay={this.props.autoplay} poster={this.imageParser(testData.data.preview.images[0].resolutions[1].url)} preload="metaData"  loop={testData.data.preview.reddit_video_preview.duration<5?true:false} controls={[]} className="video">
 					<source src={this.imageParser(testData.data.preview.images[0].resolutions[1].url)}/>
   
                     <source type="video/mp4" src={testData.data.preview.reddit_video_preview.scrubber_media_url}/>
@@ -350,15 +398,14 @@ export default Scroller;
 const styles = {
    iconLeft:{
     opacity: 0.4,
-    width: '10%',
     position: 'absolute',
     margin: 'auto',
     zIndex: 1,
     color: 'white',
     left: 1,
-    top: '50%',
+    top: '45%',
     textAlign: 'left',
-    height: '50%',
+    
 
 
   },
@@ -370,10 +417,9 @@ const styles = {
     zIndex: 1,
     color: 'white',
     right: 1,
-    top: '50%',
+    top: '45%',
     textAlign: 'right',
-    height: '50%',
-    width: '10%',
+    
 
   },
 };

@@ -30,8 +30,9 @@ class Startpage extends Component {
 	      <div className="startWrap">
 
 		      <div className="leftCol">
-			      <div className="">
+			      <div className="logoTexts">
 				      <h1 className="logo">sliddit. BETA</h1>
+				      <p style={{fontStyle: 'italic', marginTop: '2.5%', marginLeft: '1%'}}>Your site for scrolling reddit pictures</p>
 				  </div>
 			      <Button className="NSFW" onClick={e=>this.props.categorySet(e.target.value)} value="NSFW">
 			          NSFW
@@ -50,7 +51,7 @@ class Startpage extends Component {
 		      </div>
 	       </div>
 	       <div> 
-				<Switch checkedChildren="Autoplay:OFF" unCheckedChildren="Autoplay:ON" 
+				<Switch checkedChildren="Autoplay video: OFF" unCheckedChildren="Autoplay video: ON" 
 					    style={{backgroundColor: this.props.autoplay===true?'green':'red', 
 					    color: 'white', width: '10%'
 					    }} onClick={this.props.autoplayPress} value={this.props.autoplay}>

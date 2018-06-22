@@ -46,14 +46,11 @@ button{
 
 
   .loaderIcon{
-    font-size: 40px; 
-    color: green; 
+    font-size: 200%; 
+    color: white; 
     z-index: 1;
     position: absolute;
-    top: 50%;
-    left:50%;
-    height: 0px;
-    width: 0px;
+    
 
 
   }
@@ -209,7 +206,9 @@ opacity: 0.4;
     overflow: hidden;
 
   }
- 
+ .logoTexts{
+  display: flex;
+ }
   .subRedditTitle{
   	margin: auto;
   	font-size: 50px;

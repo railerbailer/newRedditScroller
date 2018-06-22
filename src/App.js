@@ -28,7 +28,7 @@ class App extends Component {
     this.state={
       nsfwAccept: false,
       category: 'nothing',
-      autoplay: true,
+      autoplay: false,
     }  
   }
 
