@@ -1,4 +1,22 @@
+export const nsfwAll=[
+'nsfw+gonewild+LegalTeens+RealGirls+ass+Amateur+Celebs+collegesluts+Blowjobs+thick+PetiteGoneWild+rule34+asstastic+nsfw_gifs+GirlsFinishingTheJob+HappyEmbarrassedGirls+TinyTits+LipsThatGrip+BustyPetite+holdthemoan+wifesharing+palegirls+TittyDrop+trashyboners+cosplaygirls'
+]
+
 // =Arrayformula(IF( A1:A="",,"'"&A1:A&"',"))
+export const animalsArray=[
+'Aww',
+'Sneks',
+'EmusRunningFromStuff',
+'BabyElephantGifs',
+'RarePuppers',
+'SEUT',
+'PartyParrot',
+'TheCatDimension',
+'Pigtures',
+'Catloaf',
+'NatureIsFuckingLit',
+
+]
 export const artArray=[
 'Art',
 
