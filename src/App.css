@@ -1,11 +1,9 @@
 body{
 	background-color: black;
-	font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  
 
 }
-
-
-
 
 
 p{
@@ -31,7 +29,7 @@ h2{
     height: 90vh;
     width: 100vw;
     max-width: 100vw;
-    max-height: 90%;
+    max-height: 100%;
     
 
 
@@ -53,7 +51,7 @@ h2{
 
 
 .image{
-  padding-bottom: 10vh !important;
+ 
 /*    
     margin: auto;
     height: 90%;
@@ -64,8 +62,8 @@ h2{
     
     object-fit: contain;
     max-width: 100%;
-    max-height: 100%;
-    height: 90vh;
+    max-height: 90vh;
+    min-height: 90vh;
 
     
 
@@ -73,16 +71,18 @@ h2{
 
 
 
-  .imgDiv p{
-  text-align: center
+.imgDiv p{
+  text-align: center;
+  max-height: 5vh;
 }
 .videoDiv p{
-  text-align: center
+  text-align: center;
+  max-height: 5vh;
 }
 .titleText{
   
   margin: auto;
-  width: 40%;
+  width: 100%;
 
 
   max-height: 15vh;
@@ -204,28 +204,28 @@ opacity: 0.4;
 
 
   .titlesLeft{
-  	font-size:3vw;
+  	font-size:20px;
     margin: auto;
     z-index: 1;
     color: white;
     left: 50%;
-    textAlign: center;
+    text-align: center;
     
     opacity: 0.4;
     max-width: 100vw;
     overflow: hidden;
   }
 
-
+.ant-dropdown-menu{
+  z-index: 123812398123981239128 !important;
+}
   .iconSetting{
     position: absolute;
     right: 1%;
-    font-size: 2.5vw
-
-    
-
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 20123123 !important;
   }
-
 
  .inputFocus{
   position: absolute;
@@ -250,23 +250,29 @@ opacity: 0.4;
   }
 
    .logoTexts{
-  display: flex;
-  padding-bottom: 25%;
+  display: relative;
+ 
+
+  height: 70vw;
 
  }
-
+.flexer{
+  display: flex !important;
+  flex-direction: row !important;
+}
   .logo{
+    margin-bottom: 0 !important;
   font-family: 'Varela Round', sans-serif;
   color: white;
-  font-size: 5vw;
-  width: 70%;
+  font-size: 40px;
+
 }
 
 .scrollLogo{
 
   font-family: 'Varela Round', sans-serif;
   color: white;
-  font-size: 3vw;
+  font-size: 20px;
 }
 .slick-slider, .slick-vertical, .slick-initialized{
   
@@ -276,9 +282,9 @@ opacity: 0.4;
 }
   .sloganText{
     font-style: italic; 
-    width: 30%;
-    font-size: 1.5vw;
-    margin-top: 2%;
+    
+    font-size: 16px;
+    
   }
 
   .subRedditTitle{
@@ -304,7 +310,7 @@ opacity: 0.4;
    .startWrap{
    	display: flex;
     flex-direction: row;
-    height: 100vh;
+    height: 120vh;
     }
 
     .startWrap button{
@@ -312,7 +318,7 @@ opacity: 0.4;
     	border-radius: 0.1px;
       font-family: 'Roboto', sans-serif;
       color: white;
-     font-size: 1.5vw; 
+     font-size: 20px; 
     }
 
     .ageConsent button{
@@ -322,34 +328,35 @@ opacity: 0.4;
 	.randomCat {
 		width: 100%;
 		height:35vh;
-		marginTop: 1%;
+    margin-top: 1%;
+    
+    
       	background-color: #6ed3cf;
       	color: black;
         background-image:url("./pics/sfw.jpeg");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: right;
-      text-shadow: 2px 2px #6ed3cf;
       margin: 1%;
-      opacity: 0.9;
+
       z-index: 0;
-      font-size: 3.5vw !important;
+      font-size: 40px !important;
     }
    .ant-popover-inner-content{
     z-index: 20000;
    }
     .NSFW {
-    	opacity: 0.9;
+    
     	width: 100%;
     	height:50vh;
       background-image:url("./pics/nsfw.jpeg");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: right;
-      text-shadow: 0.5px 0.5px red;
+    
       margin: 1%;
       z-index: 0;
-      font-size: 3.5vw !important;
+      font-size: 40px !important;
 
 
 
@@ -359,7 +366,7 @@ opacity: 0.4;
 
 
     .OTHER2{
-      background-color: #9068be;
+    
     	width: 100%;
     	height: 50vh;
        background-image:url("./pics/food.jpeg");
@@ -367,7 +374,7 @@ opacity: 0.4;
       background-repeat: no-repeat;
       background-position: left;
       margin: 1%;
-      font-size: 3.5vw !important;
+      font-size: 40px !important;
 
     	
     }
@@ -382,7 +389,7 @@ opacity: 0.4;
       background-position: left;
       text-shadow: 0.5px 0.5px gray;
       margin: 1%;
-font-size: 3.5vw !important;
+font-size: 40px !important;
 
     }
     .OTHER3{
@@ -393,7 +400,7 @@ font-size: 3.5vw !important;
       background-size: cover;
       background-repeat: no-repeat;
       margin: 1%;
-      font-size: 3.5vw !important;
+      font-size: 40px !important;
 
      
 
@@ -404,7 +411,7 @@ font-size: 3.5vw !important;
       background-repeat: no-repeat;
       background-position: right;
       color: white;
-      font-size: 3.7vw !important;
+      font-size: 45px !important;
 
 
 
@@ -418,8 +425,18 @@ font-size: 3.5vw !important;
       background-repeat: no-repeat;
       color: white;
       background-position: right;
-      font-size: 3.7vw !important;
+      font-size: 45px !important;
        
+    }
+
+    .startWrap h1{
+      color: white !important;
+      font-size: 40px !important;
+
+    }
+    .startWrap p{
+      max-width: 300px;
+      margin: auto;
     }
 
     .OTHER1:hover{
@@ -427,17 +444,20 @@ font-size: 3.5vw !important;
       background-size: cover;
       background-repeat: no-repeat;
       color: white;
-      font-size: 3.7vw !important;
+      font-size: 45px !important;
       background-position: left;
        
     }
-
+.smallText{
+  font-size: 12px !important;
+  background-color: black;
+}
     .OTHER2:hover{
       background-image:url("./pics/food.jpeg");
       background-size: cover;
       background-repeat: no-repeat;
       color: white;
-      font-size: 3.7vw !important;
+      font-size: 45px !important;
       background-position: left;
        
     }
@@ -447,18 +467,29 @@ font-size: 3.5vw !important;
       background-size: cover;
       background-repeat: no-repeat;
       color: white;
-      font-size: 3.7vw !important;
+      font-size: 45px !important;
        
     }
     .footerDiv{
-      margin-top: 50vh;
+      margin-top: 1%;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: sticky;
+      bottom: 0;
+
     }
 
     .footerDiv p,h3 {
-      color: lightgray;
+      color: lightgray
+    }
+    .instructions p,h3 {
+      color: lightgray !important;
     }
 
+
     .rightCol{
+      text-align: center;
     	width: 49%;
     	display: flex;
     	flex-direction: column;
@@ -467,6 +498,7 @@ font-size: 3.5vw !important;
 
     }
     .leftCol{
+      text-align: center;
     	width: 48%;
 margin-left: 0.5%;
     	display: flex;
@@ -476,13 +508,11 @@ margin-left: 0.5%;
     }
 
     .ant-switch-inner{
-      font-size: 1.5vw;
+      font-size: 19px;
     }
 
     .ageConsent{
-      position: relative;
+      position: relative;
       margin: auto;
-      
-      align: center;
       text-align: center;
     }
