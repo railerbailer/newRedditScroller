@@ -306,13 +306,11 @@ const menu = (
             <Dropdown overlay={menu} trigger={['click']}>
              
           <Link className="iconSetting" to="#">
-            <Tooltip placement="topLeft" title="Click to change category" arrowPointAtCenter>
               
                 {this.props.category}
                 <Icon type="sync" className="chooseCat"></Icon>
                 
               
-            </Tooltip>
             </Link>
           
          </Dropdown>
