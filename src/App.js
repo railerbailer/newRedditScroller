@@ -5,7 +5,7 @@ import {subredditArray, secondTheme} from './subreddits'
 import logo from './logo.svg'
 import './App.css'
 import Scroller from './components/scroller'
-import Categories from './components/startpage'
+import StartPage from './components/startpage'
 import {Route, Switch} from 'react-router-dom'
 
 
@@ -28,7 +28,7 @@ class App extends Component {
 
     this.state={
       nsfwAccept: false,
-      category: 'Choose category',
+      category: null,
       autoplay: false,
     }  
   }
@@ -54,7 +54,7 @@ class App extends Component {
     
     else{
       return(
-        <Categories autoplayPress={this.autoplayPress} autoplay={this.state.autoplay} categorySet={this.categorySet}/>
+        <StartPage autoplayPress={this.autoplayPress} autoplay={this.state.autoplay} categorySet={this.categorySet}/>
         )
     }
 
@@ -72,8 +72,8 @@ class App extends Component {
     return (
       <div style={styles.appWrap}>
         <Switch>  
-        <Route path='/scroll' render={() => <Scroller autoplay={this.state.autoplay} categorySet={this.categorySet} category={this.state.category}/>}/>
-        <Route path='/' render={() => <Categories autoplayPress={this.autoplayPress} autoplay={this.state.autoplay} categorySet={this.categorySet}/>}/>
+          <Route path={`/scroll/${this.state.category}`} render={() => <Scroller autoplay={this.state.autoplay} categorySet={this.categorySet} category={this.state.category}/>}/>
+          <Route path='/' render={() => <StartPage autoplayPress={this.autoplayPress} autoplay={this.state.autoplay} category={this.state.category} categorySet={this.categorySet}/>}/>
         </Switch>
 
 

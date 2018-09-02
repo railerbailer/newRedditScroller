@@ -47,18 +47,18 @@ confirm() {
 				  </div>
 
 				   <div>
-					 <Switch checkedChildren="Autoplay gifs: ON" unCheckedChildren="Autoplay video: OFF" 
-					    style={{fontSize: '20px !important', maxWidth: '250px', backgroundColor: this.props.autoplay===true?'green':'red', 
+					 <Switch checkedChildren="Autoplay gifs: ON" unCheckedChildren="Autoplay gifs: OFF" 
+					    style={{fontSize: '20px !important',backgroundColor: this.props.autoplay===true?'green':'red', 
 					    color: 'white'
 					    }} onClick={this.props.autoplayPress} value={this.props.autoplay}>
 				</Switch>
-							<Link to="/scroll">
+							<Link to={`/scroll/${this.props.category}`}>
 									<Button className="NSFW" onClick={e=>this.props.categorySet(e.target.value)} value="NSFW">
 											<h1>NSFW</h1>
 									</Button>
 									
-							</Link>
-							<Link to="/scroll">
+							</Link> 
+							{/* <Link to="/scroll">
 										<Button onClick={e=>this.props.categorySet(e.target.value)} value="NSFW" className="smallText">Press here to watch NSFW content!</Button>
 									</Link>
 							<h2>What is NSFW</h2>
@@ -85,10 +85,10 @@ confirm() {
 								
 								
 								<p>On the 28th of November 2007 Drew Curtis, the founder of Fark.	com tried to trademark the tag/phrase, but the application did not get recognized. </p>
-								
+								 */}
 						</div>
 						
-				    <Link to="/scroll">  
+				    <Link to={`/scroll/${this.props.category}`}>  
 			       <Button className="randomCat" onClick={e=>this.props.categorySet(e.target.value)} value="Normal">
 						 <h1>SFW</h1>
 			        </Button>
@@ -96,7 +96,7 @@ confirm() {
 						
 							
 			        </Link>
-							<Link to="/scroll">  
+							{/* <Link to="/scroll">  
 								<Button className="randomCat" onClick={e=>this.props.categorySet(e.target.value)} value="Normal" className="smallText">Press here to watch SFW content!</Button>
 							</Link>
 							<h2>Watching SFW content online</h2>
@@ -114,16 +114,16 @@ confirm() {
 						If you want to go back to a previous subreddit you scrolled you can just go back by going "left" </p> 
 						</div>
 				
-							</Link>
+							</Link> */}
 			      </div>
 			   <div className="rightCol">
-				   <Link to="/scroll">
+				   <Link to={`/scroll/${this.props.category}`}>
 				       <Button className="OTHER1" onClick={e=>this.props.categorySet(e.target.value)} value="Art"> 
-							 <h1> ART</h1>
+							 <h1>ART</h1>
 				        </Button>
 							
 				    </Link>
-						<Link to="/scroll">
+						{/* <Link to="/scroll">
 								<Button  onClick={e=>this.props.categorySet(e.target.value)} value="Art" className="smallText">Press here to watch ART content!</Button>
 						</Link>
 						
@@ -137,15 +137,15 @@ confirm() {
 						<p>For Plato art was nature, but in the 1900s photography took over the scene and in the 2000s abstract art went through the roof
 							and transformed the meaning and usage of art into art being a representation. The questions still remains whether art needs to be beautiful,
 							expressive, intellectual or skillful.
-						</p>
-				    <Link to="/scroll">
+						</p> */}
+				    <Link to={`/scroll/${this.props.category}`}>
 				        <Button className="OTHER2" onClick={e=>this.props.categorySet(e.target.value)} value="Food">
 								<h1>FOOD</h1>
 				        </Button>
 
 			        </Link>
 							
-							<Link to="/scroll">
+							{/* <Link to="/scroll">
 							 <Button onClick={e=>this.props.categorySet(e.target.value)} value="Food" 
 							 className="smallText">Press here to watch FOOD content!</Button>
 						  </Link>
@@ -156,14 +156,14 @@ confirm() {
 							</p>
 							<h2>Food online</h2>
 							<p>Although the food can not be cooked online the cooking scene is large and there are popular internet personas making their living from cooking and posting videos and content of it on the internet.</p>
-							<p></p>
-			        <Link to="/scroll">
+							<p></p> */}
+			        <Link to={`/scroll/${this.props.category}`}>
 				        <Button className="OTHER3" onClick={e=>this.props.categorySet(e.target.value)} value="Animals">
 								<h1>ANIMALS</h1>
 				        </Button>
 
 			        </Link>
-							<Link to="/scroll">
+							{/* <Link to="/scroll">
 							<Button onClick={e=>this.props.categorySet(e.target.value)} pan className="smallText">Press here to watch ANIMAL content!</Button>
 							</Link>
 							<br/>
@@ -181,7 +181,7 @@ confirm() {
 						looking to improve and would love any critizism that you can give. 
 						</p>
 						</div>
-							</Link>
+							</Link> */}
 							
 		      </div>
 	       </div>
