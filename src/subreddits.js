@@ -1,3 +1,9 @@
+export const testArray=[
+    {name: 'asd'},
+    {name: '2'},
+    {name: '3'},
+
+]
 export const nsfwAll=[
 'nsfw+gonewild+LegalTeens+RealGirls+ass+Amateur+Celebs+collegesluts+Blowjobs+thick+PetiteGoneWild+rule34+asstastic+nsfw_gifs+GirlsFinishingTheJob+HappyEmbarrassedGirls+TinyTits+LipsThatGrip+BustyPetite+holdthemoan+wifesharing+palegirls+TittyDrop+trashyboners+cosplaygirls'
 ]
@@ -17,6 +23,7 @@ export const animalsArray=[
 'NatureIsFuckingLit',
 
 ]
+
 export const artArray=[
 'Art',
 
@@ -213,7 +220,7 @@ export const manmadeArray=[
 'AlbumArtPorn',
 ]
 export const subredditArray= [
-,'pics'
+'pics'
 ,'PhotoshopBattles'
 ,'perfecttiming'
 ,'itookapicture'
